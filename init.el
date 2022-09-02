@@ -49,27 +49,29 @@ apps are not started from a shell."
  '(delete-selection-mode t)
  '(display-line-numbers nil)
  '(ein:output-area-inlined-images t)
+ '(elpy-rpc-virtualenv-path 'current)
  '(elpy-shell-echo-output nil)
  '(global-display-line-numbers-mode nil)
  '(inhibit-startup-screen t)
  '(line-number-mode t)
  '(org-agenda-files
-   '("~/RepoGit/emacs.org" "/Users/charlesprat/RepoGit/missiontransition/mt.org"))
+   '("/Users/charlesprat/RepoGit/emacs.org" "/Users/charlesprat/RepoGit/missiontransition/mt.org" "/Users/charlesprat/.emacs.d/misc_todo.org"))
  '(package-selected-packages
-   '(mu4e-overview markdown-preview-mode ein org-bullets use-package elpy magit-gerrit magit conda anaconda-mode minimap flymake-flycheck jedi-direx pyvenv pyenv-mode jedi flymake-python-pyflakes flymake-proselint flycheck solarized-theme exotica-theme))
+   '(company-quickhelp impatient-mode csv-mode markdown-preview-eww ox-reveal hide-mode-line org-tree-slide mu4e-overview markdown-preview-mode ein org-bullets use-package elpy magit-gerrit magit conda anaconda-mode minimap flymake-flycheck jedi-direx pyvenv pyenv-mode jedi flymake-python-pyflakes flymake-proselint flycheck solarized-theme exotica-theme))
  '(scroll-bar-mode nil)
  '(send-mail-function 'mailclient-send-it)
  '(show-paren-mode 1)
  '(tool-bar-mode nil)
- '(user-mail-address "charprat@yahoo.fr"))
+ '(user-mail-address "charprat@yahoo.fr")
+ '(warning-suppress-types '(((python python-shell-completion-native-turn-on-maybe)))))
 
 
 (add-hook 'python-mode-hook 'flycheck-mode)
 
 
 ;; Standard Jedi.el setting
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)
+;; (add-hook 'python-mode-hook 'jedi:setup)
+;; (setq jedi:complete-on-dot nil)
 
 
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
