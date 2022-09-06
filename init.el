@@ -59,6 +59,9 @@ apps are not started from a shell."
    '("/Users/charlesprat/RepoGit/emacs.org" "/Users/charlesprat/RepoGit/missiontransition/mt.org" "/Users/charlesprat/.emacs.d/misc_todo.org"))
  '(org-agenda-include-diary t)
  '(org-agenda-span 30)
+ '(org-babel-load-languages '((emacs-lisp . t) (python . t)))
+ '(org-confirm-babel-evaluate nil)
+ '(org-return-follows-link t)
  '(package-selected-packages
    '(company-quickhelp impatient-mode csv-mode markdown-preview-eww ox-reveal hide-mode-line org-tree-slide mu4e-overview markdown-preview-mode ein org-bullets use-package elpy magit-gerrit magit conda anaconda-mode minimap flymake-flycheck jedi-direx pyvenv pyenv-mode jedi flymake-python-pyflakes flymake-proselint flycheck solarized-theme exotica-theme))
  '(scroll-bar-mode nil)
