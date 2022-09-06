@@ -1,3 +1,14 @@
+;; key bindings
+(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>") 'shrink-window)
+(global-set-key (kbd "S-C-<up>") 'enlarge-window)
+(global-set-key (kbd "<f7>") 'compile)
+(global-set-key (kbd "C-c c") 'compile)
+(global-set-key (kbd "C-c g") 'list-matching-lines)
+(global-set-key (kbd "C-c a") 'org-agenda)
+
+
 (defun octave-sync-function-file-names () (ignore))
 (setq visible-bell 1)
 
@@ -72,24 +83,7 @@ apps are not started from a shell."
  '(warning-suppress-types '(((python python-shell-completion-native-turn-on-maybe)))))
 
 
-(add-hook 'python-mode-hook 'flycheck-mode)
-
-
-;; Standard Jedi.el setting
-;; (add-hook 'python-mode-hook 'jedi:setup)
-;; (setq jedi:complete-on-dot nil)
-
-
-(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "S-C-<down>") 'shrink-window)
-(global-set-key (kbd "S-C-<up>") 'enlarge-window)
-(global-set-key (kbd "<f7>") 'compile)
-(global-set-key (kbd "C-c c") 'compile)
-(global-set-key (kbd "C-c g") 'list-matching-lines)
-(global-set-key (kbd "C-c a") 'org-agenda)
-
-
+;; python config
 ;; from https://github.com/necaris/conda.el
 (require 'conda)
 ;; if you want interactive shell support, include:
@@ -99,8 +93,20 @@ apps are not started from a shell."
 ;; if you want auto-activation (see below for details), include:
 (conda-env-autoactivate-mode t)
 
+(setenv "WORKON_HOME" "/Users/charlesprat/miniconda3/envs")
+(conda-env-activate "base")
+(add-hook 'python-mode-hook 'flycheck-mode)
+;; Standard Jedi.el setting
+;; (add-hook 'python-mode-hook 'jedi:setup)
+;; (setq jedi:complete-on-dot nil)
+
 
 (setq conda-env-home-directory (expand-file-name "~/miniconda3/"))
+
+(when (executable-find "ipython")
+  (setq python-shell-interpreter "ipython"
+	python-shell-interpreter-args "-i --simple-prompt"))
+
 (put 'magit-clean 'disabled nil)
 
 (defun create-tags (dir-name)
@@ -108,10 +114,6 @@ apps are not started from a shell."
      (interactive "DDirectory: ")
      (eshell-command 
       (format "cd %s; find %s -type f -name \"*.py\" | etags -" dir-name dir-name)))
-
-(when (executable-find "ipython")
-  (setq python-shell-interpreter "ipython"
-	python-shell-interpreter-args "-i --simple-prompt"))
 
 
 (set-face-attribute 'default nil :height 140)
