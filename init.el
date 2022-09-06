@@ -73,6 +73,7 @@ apps are not started from a shell."
  '(org-babel-load-languages '((emacs-lisp . t) (python . t)))
  '(org-confirm-babel-evaluate nil)
  '(org-return-follows-link t)
+ '(org-startup-with-inline-images t)
  '(package-selected-packages
    '(company-quickhelp impatient-mode csv-mode markdown-preview-eww ox-reveal hide-mode-line org-tree-slide mu4e-overview markdown-preview-mode ein org-bullets use-package elpy magit-gerrit magit conda anaconda-mode minimap flymake-flycheck jedi-direx pyvenv pyenv-mode jedi flymake-python-pyflakes flymake-proselint flycheck solarized-theme exotica-theme))
  '(scroll-bar-mode nil)
