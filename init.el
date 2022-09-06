@@ -212,3 +212,5 @@ apps are not started from a shell."
 ;; copy french-holidays from emacswiki.org in .emacs.d/lisp
 (require 'french-holidays)
 (setq calendar-holidays holiday-french-holidays)
+
+(require 'org-tempo)
