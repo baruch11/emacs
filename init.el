@@ -35,6 +35,7 @@ apps are not started from a shell."
 
 
 (add-to-list 'load-path "~/.emacs.d/elpa/flymake-easy-20140818.755")
+(add-to-list 'load-path "~/.emacs.d/lisp")
 
 ;; and `package-pinned-packages`. Most users will not need or want to do this.
 ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -56,6 +57,8 @@ apps are not started from a shell."
  '(line-number-mode t)
  '(org-agenda-files
    '("/Users/charlesprat/RepoGit/emacs.org" "/Users/charlesprat/RepoGit/missiontransition/mt.org" "/Users/charlesprat/.emacs.d/misc_todo.org"))
+ '(org-agenda-include-diary t)
+ '(org-agenda-span 30)
  '(package-selected-packages
    '(company-quickhelp impatient-mode csv-mode markdown-preview-eww ox-reveal hide-mode-line org-tree-slide mu4e-overview markdown-preview-mode ein org-bullets use-package elpy magit-gerrit magit conda anaconda-mode minimap flymake-flycheck jedi-direx pyvenv pyenv-mode jedi flymake-python-pyflakes flymake-proselint flycheck solarized-theme exotica-theme))
  '(scroll-bar-mode nil)
@@ -199,3 +202,8 @@ apps are not started from a shell."
                    (buffer-substring-no-properties (point-min) (point-max))))
          (current-buffer)))
 
+
+;; Holidays
+;; copy french-holidays from emacswiki.org in .emacs.d/lisp
+(require 'french-holidays)
+(setq calendar-holidays holiday-french-holidays)
