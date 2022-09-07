@@ -67,20 +67,27 @@ apps are not started from a shell."
  '(inhibit-startup-screen t)
  '(line-number-mode t)
  '(org-agenda-files
-   '("/Users/charlesprat/RepoGit/emacs.org" "/Users/charlesprat/RepoGit/missiontransition/mt.org" "/Users/charlesprat/.emacs.d/misc_todo.org"))
+   '("/Users/charlesprat/RepoGit/emacs.org"
+     "/Users/charlesprat/RepoGit/missiontransition/mt.org"
+     "/Users/charlesprat/.emacs.d/misc_todo.org"
+     "/Users/charlesprat/.emacs.d/bouboulinos.org"
+     ))
  '(org-agenda-include-diary t)
  '(org-agenda-span 30)
- '(org-babel-load-languages '((emacs-lisp . t) (python . t)))
+ '(org-babel-load-languages '((emacs-lisp . t) (python . t) (jupyter . t)))
  '(org-confirm-babel-evaluate nil)
  '(org-return-follows-link t)
  '(org-startup-with-inline-images t)
  '(package-selected-packages
-   '(company-quickhelp impatient-mode csv-mode markdown-preview-eww ox-reveal hide-mode-line org-tree-slide mu4e-overview markdown-preview-mode ein org-bullets use-package elpy magit-gerrit magit conda anaconda-mode minimap flymake-flycheck jedi-direx pyvenv pyenv-mode jedi flymake-python-pyflakes flymake-proselint flycheck solarized-theme exotica-theme))
+   '(org-babel-eval-in-repl jupyter company-quickhelp impatient-mode csv-mode markdown-preview-eww ox-reveal hide-mode-line org-tree-slide mu4e-overview markdown-preview-mode ein org-bullets use-package elpy magit-gerrit magit conda anaconda-mode minimap flymake-flycheck jedi-direx pyvenv pyenv-mode jedi flymake-python-pyflakes flymake-proselint flycheck solarized-theme exotica-theme))
  '(scroll-bar-mode nil)
  '(send-mail-function 'mailclient-send-it)
  '(show-paren-mode 1)
  '(tool-bar-mode nil)
  '(user-mail-address "charprat@yahoo.fr")
+ '(warning-suppress-log-types
+   '(((python python-shell-completion-native-turn-on-maybe))
+     ((python python-shell-completion-native-turn-on-maybe))))
  '(warning-suppress-types '(((python python-shell-completion-native-turn-on-maybe)))))
 
 
@@ -214,4 +221,17 @@ apps are not started from a shell."
 (require 'french-holidays)
 (setq calendar-holidays holiday-french-holidays)
 
+;; literate code configuration
 (require 'org-tempo)
+
+;; jupyter config
+;; https://sqrtminusone.xyz/posts/2021-05-01-org-python/
+(org-babel-jupyter-override-src-block "python")
+(add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+
+;; woraround on ansi color display issue. cf  https://github.com/nnicandro/emacs-jupyter/issues/366
+(defun display-ansi-colors ()
+  (ansi-color-apply-on-region (point-min) (point-max)))
+
+(add-hook 'org-babel-after-execute-hook 'display-ansi-colors)
+
