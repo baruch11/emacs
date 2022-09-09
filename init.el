@@ -57,7 +57,6 @@ apps are not started from a shell."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(conda-anaconda-home "/Users/charlesprat/miniconda3/")
  '(delete-selection-mode t)
  '(display-line-numbers nil)
  '(ein:output-area-inlined-images t)
@@ -92,8 +91,18 @@ apps are not started from a shell."
 
 
 ;; python config
+(use-package conda
+  :config
+  (setq conda-anaconda-home (expand-file-name "~/miniconda3/"))
+  (setq conda-env-home-directory (expand-file-name "~/miniconda3/"))
+  (setq conda-env-subdirectory "envs"))
+
+(conda-env-activate "base")
+
+
+
+
 ;; from https://github.com/necaris/conda.el
-(require 'conda)
 ;; if you want interactive shell support, include:
 (conda-env-initialize-interactive-shells)
 ;; if you want eshell support, include:
@@ -101,15 +110,8 @@ apps are not started from a shell."
 ;; if you want auto-activation (see below for details), include:
 (conda-env-autoactivate-mode t)
 
-(setenv "WORKON_HOME" "/Users/charlesprat/miniconda3/envs")
-(conda-env-activate "base")
 (add-hook 'python-mode-hook 'flycheck-mode)
-;; Standard Jedi.el setting
-;; (add-hook 'python-mode-hook 'jedi:setup)
-;; (setq jedi:complete-on-dot nil)
 
-
-(setq conda-env-home-directory (expand-file-name "~/miniconda3/"))
 
 (when (executable-find "ipython")
   (setq python-shell-interpreter "ipython"
@@ -234,4 +236,14 @@ apps are not started from a shell."
   (ansi-color-apply-on-region (point-min) (point-max)))
 
 (add-hook 'org-babel-after-execute-hook 'display-ansi-colors)
+
+(defun my/jupyter-refresh-kernelspecs ()
+  "Refresh Jupyter kernelspecs"
+  (interactive)
+  (jupyter-available-kernelspecs t))
+
+(require 'color)
+(set-face-attribute 'org-block nil :background
+                    (color-darken-name
+                     (face-attribute 'default :background) 5))
 
