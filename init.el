@@ -75,7 +75,7 @@ apps are not started from a shell."
  '(org-return-follows-link t)
  '(org-startup-with-inline-images t)
  '(package-selected-packages
-   '(org-babel-eval-in-repl jupyter company-quickhelp impatient-mode csv-mode markdown-preview-eww ox-reveal hide-mode-line org-tree-slide mu4e-overview markdown-preview-mode ein org-bullets use-package elpy magit-gerrit magit conda anaconda-mode minimap flymake-flycheck jedi-direx pyvenv pyenv-mode jedi flymake-python-pyflakes flymake-proselint flycheck solarized-theme exotica-theme))
+   '(company-plsense org-babel-eval-in-repl jupyter company-quickhelp impatient-mode csv-mode markdown-preview-eww ox-reveal hide-mode-line org-tree-slide mu4e-overview markdown-preview-mode ein org-bullets use-package elpy magit-gerrit magit conda anaconda-mode minimap flymake-flycheck jedi-direx pyvenv pyenv-mode jedi flymake-python-pyflakes flymake-proselint flycheck solarized-theme exotica-theme))
  '(scroll-bar-mode nil)
  '(send-mail-function 'mailclient-send-it)
  '(show-paren-mode 1)
@@ -243,6 +243,11 @@ apps are not started from a shell."
 (set-face-attribute 'org-block nil :background
                     (color-darken-name
                      (face-attribute 'default :background) 5))
+
+;; perl completion
+(add-to-list 'company-backends 'company-plsense)
+(add-hook 'perl-mode-hook 'company-mode)
+(add-hook 'cperl-mode-hook 'company-mode)
 
 
 ;; inhibit pair mode for < in org-mode
