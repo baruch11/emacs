@@ -60,17 +60,14 @@ apps are not started from a shell."
  '(delete-selection-mode t)
  '(display-line-numbers nil)
  '(ein:output-area-inlined-images t)
+ '(electric-pair-mode t)
  '(elpy-rpc-virtualenv-path 'current)
  '(elpy-shell-echo-output nil)
  '(global-display-line-numbers-mode nil)
  '(inhibit-startup-screen t)
  '(line-number-mode t)
  '(org-agenda-files
-   '("/Users/charlesprat/RepoGit/emacs.org"
-     "/Users/charlesprat/RepoGit/missiontransition/mt.org"
-     "/Users/charlesprat/.emacs.d/misc_todo.org"
-     "/Users/charlesprat/.emacs.d/bouboulinos.org"
-     ))
+   '("/Users/charlesprat/RepoGit/emacs.org" "/Users/charlesprat/RepoGit/missiontransition/mt.org" "/Users/charlesprat/.emacs.d/misc_todo.org" "/Users/charlesprat/.emacs.d/bouboulinos.org"))
  '(org-agenda-include-diary t)
  '(org-agenda-span 30)
  '(org-babel-load-languages '((emacs-lisp . t) (python . t) (jupyter . t)))
@@ -247,3 +244,8 @@ apps are not started from a shell."
                     (color-darken-name
                      (face-attribute 'default :background) 5))
 
+
+;; inhibit pair mode for < in org-mode
+(add-hook 'org-mode-hook
+	  (lambda () (setq-local electric-pair-inhibit-predicate `(lambda (c)
+                  (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
