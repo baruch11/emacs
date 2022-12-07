@@ -24,6 +24,12 @@
 (use-package exec-path-from-shell
   :ensure t)
 
+;; which-key
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
+
 ;; LSP
 (use-package lsp-mode
   :init
@@ -35,7 +41,10 @@
          ;;(lsp-mode . lsp-enable-which-key-integration)
 	 )
   :ensure t
-  :commands lsp)
+  :commands lsp
+  :config
+  (lsp-enable-which-key-integration t)
+  )
 (use-package lsp-ui
   :ensure t
   :commands lsp-ui-mode
