@@ -13,6 +13,10 @@
 (global-set-key (kbd "C-c c") 'compile)
 (global-set-key (kbd "C-c g") 'list-matching-lines)
 (global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>") 'shrink-window)
+(global-set-key (kbd "S-C-<up>") 'enlarge-window)
 ;; disable right alt to be able to type ~ | etc.
 (setq ns-right-alternate-modifier nil)
 
