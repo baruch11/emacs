@@ -97,13 +97,14 @@
 
 ;; org config
 (use-package org-bullets
+  :ensure t
   :after org
   :hook (org-mode . org-bullets-mode)
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
 ;; mail config
-(load-file "./email.el")
+(load-file "~/.emacs.d/email.el")
 
 ;; magit
 (use-package magit
@@ -122,7 +123,7 @@
  '(org-agenda-files
    '("/Users/charlesprat/RepoGit/emacs.org" "/Users/charlesprat/RepoGit/missiontransition/mt.org" "/Users/charlesprat/.emacs.d/misc_todo.org" "/Users/charlesprat/.emacs.d/bouboulinos.org" "/Users/charlesprat/RepoGit/yotta/yotta.org"))
  '(package-selected-packages
-   '(magit lsp-ui lsp-mode exec-path-from-shell conda poetry company use-package))
+   '(org-bullets bash-completion pdf-tools inf-mongo which-key magit lsp-mode exec-path-from-shell conda poetry company use-package))
  '(scroll-bar-mode nil)
  '(show-paren-mode 1)
  '(tool-bar-mode nil)
