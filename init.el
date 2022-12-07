@@ -110,6 +110,12 @@
 (use-package magit
   :ensure t)
 
+;; python interpreter
+(when (executable-find "ipython")
+  (setq python-shell-interpreter "ipython"
+	python-shell-interpreter-args "-i --simple-prompt"))
+
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
