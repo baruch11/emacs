@@ -35,11 +35,7 @@
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
-  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-         (python-mode . lsp)
-         ;; if you want which-key integration
-         ;;(lsp-mode . lsp-enable-which-key-integration)
-	 )
+  :hook ((python-mode . lsp))
   :ensure t
   :commands lsp
   :config
@@ -83,17 +79,17 @@
   (setq conda-env-subdirectory "envs")
   ;; from https://github.com/necaris/conda.el
   ;; if you want interactive shell support, include:
-  (conda-env-initialize-interactive-shells)
+  ;;(conda-env-initialize-interactive-shells)
   ;; if you want eshell support, include:
-  (conda-env-initialize-eshell)
+  ;;(conda-env-initialize-eshell)
   ;; if you want auto-activation (see below for details), include:
-  (conda-env-autoactivate-mode t)
+  ;;(conda-env-autoactivate-mode t)
   (conda-env-activate "base")
   )
 
-;; poetry
-(use-package poetry
-  :ensure t)
+
+(use-package poetry :ensure t)
+(use-package dockerfile-mode :ensure t)
 
 ;; org config
 (use-package org-bullets
@@ -115,7 +111,29 @@
   (setq python-shell-interpreter "ipython"
 	python-shell-interpreter-args "-i --simple-prompt"))
 
+(use-package kubernetes
+  :ensure t
+  :commands (kubernetes-overview)
+  :config
+  (setq kubernetes-poll-frequency 3600
+        kubernetes-redraw-frequency 3600))
 
+(use-package projectile
+  :ensure t
+  :config
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (projectile-mode +1))
+
+(use-package kubernetes
+  :ensure t
+  :commands (kubernetes-overview)
+  :config
+  (setq kubernetes-poll-frequency 3600
+        kubernetes-redraw-frequency 3600))
+
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -129,7 +147,7 @@
  '(org-agenda-files
    '("/Users/charlesprat/RepoGit/emacs.org" "/Users/charlesprat/RepoGit/missiontransition/mt.org" "/Users/charlesprat/.emacs.d/misc_todo.org" "/Users/charlesprat/.emacs.d/bouboulinos.org" "/Users/charlesprat/RepoGit/yotta/yotta.org"))
  '(package-selected-packages
-   '(org-bullets bash-completion pdf-tools inf-mongo which-key magit lsp-mode exec-path-from-shell conda poetry company use-package))
+   '(flycheck dockerfile-mode projectile kubernetes yaml-mode org-bullets bash-completion pdf-tools inf-mongo which-key magit lsp-mode exec-path-from-shell conda poetry company use-package))
  '(scroll-bar-mode nil)
  '(show-paren-mode 1)
  '(tool-bar-mode nil)
@@ -140,3 +158,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :extend nil :stipple nil :background "White" :foreground "Black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "nil" :family "Menlo")))))
+
+;; PYTHONPATH to curdir
+(defun my/set-pythonpath_curdir()
+  "SET PYTHONPATH TO CURRENT DIR."
+  (interactive)
+  (setenv "PYTHONPATH" (expand-file-name (nth 1 (split-string (pwd)))))
+  )
