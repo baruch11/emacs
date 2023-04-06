@@ -1,3 +1,4 @@
+;; https://jeffkreeftmeijer.com/emacs-straight-use-package/
 ;; Install straight.el
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -20,7 +21,7 @@
   :custom (straight-use-package-by-default t))
 
 (straight-use-package 'org)
-
+(straight-use-package 'zenburn-theme)
 
 ;; (require 'package)
 ;; (package-initialize)
@@ -169,7 +170,8 @@
  '(global-auto-revert-mode t)
  '(inhibit-startup-screen t)
  '(org-agenda-files
-   '("/Users/charlesprat/RepoGit/emacs.org" "/Users/charlesprat/RepoGit/missiontransition/mt.org" "/Users/charlesprat/.emacs.d/misc_todo.org" "/Users/charlesprat/.emacs.d/bouboulinos.org" "/Users/charlesprat/RepoGit/yotta/yotta.org"))
+   '("~/RepoGit/petites-rivieres/pr_todo.org" "/Users/charlesprat/RepoGit/emacs.org" "/Users/charlesprat/RepoGit/missiontransition/mt.org" "/Users/charlesprat/.emacs.d/misc_todo.org" "/Users/charlesprat/.emacs.d/bouboulinos.org" "/Users/charlesprat/RepoGit/yotta/yotta.org"))
+ '(org-agenda-include-diary t)
  '(org-babel-load-languages '((emacs-lisp . t) (python . t)))
  '(org-confirm-babel-evaluate nil)
  '(package-selected-packages
@@ -179,7 +181,12 @@
  '(show-paren-mode 1)
  '(tool-bar-mode nil)
  '(visible-bell t)
- '(warning-suppress-types '(((python python-shell-completion-native-turn-on-maybe)))))
+ '(holiday-bahai-holidays nil)
+ '(holiday-hebrew-holidays nil)
+ '(holiday-islamic-holidays nil)
+ '(warning-suppress-types
+   '((org-element-cache)
+     ((python python-shell-completion-native-turn-on-maybe)))))
 
 (set-face-attribute 'default nil :height 140)
 
@@ -239,6 +246,36 @@ apps are not started from a shell."
   :straight (:host github :repo "jkitchin/ox-ipynb")
   :after ox)
 
+
+(use-package alert
+  :config
+  (setq
+       ;; alert-default-style 'notifier
+       alert-default-style 'osx-notifier
+       )
+  ;; (alert "This is an alert" :severity 'high)
+  ;; (alert "This is an alert" :title "My Alert" :category 'debug)
+  )
+(use-package org-alert
+  :custom (alert-default-style 'osx-notifier)
+  :config
+  (setq org-alert-interval 300
+	org-alert-notification-title "Org alert reminder")
+  (org-alert-enable)
+  )
+
+(use-package yaml-mode)
+
+(use-package ansi-color
+  :hook (compilation-filter . ansi-color-compilation-filter)) 
+
+;; org-ai for chatgpt: 
+;; put your API key in .netrc with the format
+;; machine api.openai.com login org-ai password <your-api-key>
+(straight-use-package
+ '(org-ai :type git :host github :repo "rksm/org-ai"
+          :local-repo "org-ai"
+          :files ("*.el" "README.md" "snippets")))
 
 (provide 'init)
 ;;; init.el ends here
