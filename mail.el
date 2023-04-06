@@ -1,4 +1,4 @@
-
+;; https://macowners.club/posts/email-emacs-mu4e-macos/
 ;; load mu4e from the installation path.
 ;; yours might differ check with the Emacs installation
 (use-package mu4e
@@ -57,3 +57,31 @@
 
 ;; mu4e address completion
 (add-hook 'mu4e-compose-mode-hook 'company-mode)
+
+
+;; (setq mu4e-contexts
+;;       `((make-mu4e-context
+;;           :name "yahoo"
+;;           :enter-func
+;;           (lambda () (mu4e-message "Enter dummy@example.de context"))
+;;           :leave-func
+;;           (lambda () (mu4e-message "Leave dummy@example.de context"))
+;;           :match-func
+;;           (lambda (msg)
+;;             (when msg
+;;               (mu4e-message-contact-field-matches msg
+;;                                                   :to "charprat@yahoo.fr")))
+;;           :vars '((user-mail-address . "charprat@yahoo.fr")
+;;                   (user-full-name . "Dummy McDummerson")
+;;                   ;; check your ~/.maildir to see how the subdirectories are called
+;;                   ;; e.g `ls ~/.maildir/example'
+;;                   (mu4e-drafts-folder . "/yahoo_gmail/[Gmail]/Brouillons")
+;;                   (mu4e-refile-folder . "/yahoo_gmail/Archive")
+;;                   (mu4e-sent-folder   . "/yahoo_gmail/[Gmail]/Messages envoy&AOk-s")
+;;                   (mu4e-trash-folder  . "/yahoo_gmail/[Gmail]/Corbeille")))))
+
+;; (setq mu4e-context-policy 'pick-first) ;; start with the first (default) context;
+;; (setq mu4e-compose-context-policy 'ask) ;; ask for context if no context matches;
+(setq mu4e-trash-folder "/yahoo_gmail/[Gmail]/Corbeille")
+(setq mu4e-sent-folder "/yahoo_gmail/[Gmail]/Messages envoy&AOk-s")
+(setq mu4e-drafts-folder "/yahoo_gmail/[Gmail]/Brouillons")
