@@ -27,9 +27,6 @@
 ;; (package-initialize)
 
 
-;; (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-;; ;;(package-refresh-contents)
-
 ;; (unless (package-installed-p 'use-package)
 ;;   (package-install 'use-package))
 
@@ -44,6 +41,7 @@
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
+(global-set-key "\C-x\C-b" 'buffer-menu)
 ;; disable right alt to be able to type ~ | etc.
 (setq ns-right-alternate-modifier nil)
 
@@ -168,12 +166,16 @@
  '(display-fill-column-indicator-column 80)
  '(electric-pair-mode t)
  '(global-auto-revert-mode t)
+ '(holiday-bahai-holidays nil)
+ '(holiday-hebrew-holidays nil)
+ '(holiday-islamic-holidays nil)
  '(inhibit-startup-screen t)
  '(org-agenda-files
-   '("~/RepoGit/petites-rivieres/pr_todo.org" "/Users/charlesprat/RepoGit/emacs.org" "/Users/charlesprat/RepoGit/missiontransition/mt.org" "/Users/charlesprat/.emacs.d/misc_todo.org" "/Users/charlesprat/.emacs.d/bouboulinos.org" "/Users/charlesprat/RepoGit/yotta/yotta.org"))
+   '("~/RepoGit/petites-rivieres/pr_todo.org" "/Users/charlesprat/RepoGit/emacs.org" "/Users/charlesprat/.emacs.d/misc_todo.org" "/Users/charlesprat/.emacs.d/bouboulinos.org" "/Users/charlesprat/RepoGit/yotta/yotta.org"))
  '(org-agenda-include-diary t)
  '(org-babel-load-languages '((emacs-lisp . t) (python . t)))
  '(org-confirm-babel-evaluate nil)
+ '(org-return-follows-link t)
  '(package-selected-packages
    '(jupyter mu4e-overview zenburn-theme markdown-toc flycheck dockerfile-mode projectile kubernetes yaml-mode org-bullets bash-completion pdf-tools inf-mongo which-key magit lsp-mode exec-path-from-shell conda poetry company use-package))
  '(python-shell-completion-native-enable nil)
@@ -181,11 +183,10 @@
  '(show-paren-mode 1)
  '(tool-bar-mode nil)
  '(visible-bell t)
- '(holiday-bahai-holidays nil)
- '(holiday-hebrew-holidays nil)
- '(holiday-islamic-holidays nil)
  '(warning-suppress-types
    '((org-element-cache)
+     (org-element-cache)
+     (org-element-cache)
      ((python python-shell-completion-native-turn-on-maybe)))))
 
 (set-face-attribute 'default nil :height 140)
@@ -238,9 +239,9 @@ apps are not started from a shell."
    ;; Python & Jupyter
    (python . t)
    (jupyter . t)))
+ (org-babel-jupyter-override-src-block "python")
+ (setq ob-async-no-async-languages-alist '("python" "jupyter-python"))
 
-(org-babel-jupyter-override-src-block "python")
-(setq ob-async-no-async-languages-alist '("python" "jupyter-python"))
 
 (use-package ox-ipynb
   :straight (:host github :repo "jkitchin/ox-ipynb")
@@ -259,7 +260,7 @@ apps are not started from a shell."
 (use-package org-alert
   :custom (alert-default-style 'osx-notifier)
   :config
-  (setq org-alert-interval 300
+  (setq org-alert-interval 3600
 	org-alert-notification-title "Org alert reminder")
   (org-alert-enable)
   )
