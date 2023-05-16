@@ -171,7 +171,8 @@
  '(holiday-islamic-holidays nil)
  '(inhibit-startup-screen t)
  '(org-agenda-files
-   '("~/RepoGit/petites-rivieres/pr_todo.org" "/Users/charlesprat/RepoGit/emacs.org" "/Users/charlesprat/.emacs.d/misc_todo.org" "/Users/charlesprat/.emacs.d/bouboulinos.org" "/Users/charlesprat/RepoGit/yotta/yotta.org"))
+   '("/Users/charlesprat/.emacs.d/bouboulinos.org"
+     ))
  '(org-agenda-include-diary t)
  '(org-babel-load-languages '((emacs-lisp . t) (python . t)))
  '(org-confirm-babel-evaluate nil)
@@ -280,3 +281,6 @@ apps are not started from a shell."
 
 (provide 'init)
 ;;; init.el ends here
+
+(load-file "~/.emacs.d/roam-tune.el")
+
