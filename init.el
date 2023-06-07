@@ -379,3 +379,8 @@ apps are not started from a shell."
 
 (put 'magit-clean 'disabled nil)
 
+;; Or if you use use-package
+(use-package dashboard
+  :config
+  (dashboard-setup-startup-hook))
+
