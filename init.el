@@ -243,6 +243,8 @@ apps are not started from a shell."
  (org-babel-jupyter-override-src-block "python")
  (setq ob-async-no-async-languages-alist '("python" "jupyter-python"))
 
+(load-file "~/.emacs.d/jupyter-tune.el")
+
 
 (use-package ox-ipynb
   :straight (:host github :repo "jkitchin/ox-ipynb")
