@@ -47,3 +47,5 @@
       (dolist (file to-delete)
         (delete-file (car file))))))
 
+(provide 'jupyter-tune)
+;;; jupyter-tune ends here
