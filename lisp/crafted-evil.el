@@ -36,8 +36,13 @@
   :type 'boolean)
 
 ;; Install dependencies
-(use-package evil)
-(use-package evil-collection)
+(use-package evil
+  :init
+  (setq evil-want-keybinding nil
+	evil-want-C-u-scroll t))
+(use-package evil-collection
+  :init
+  (setq evil-want-keybinding nil))
 (use-package evil-nerd-commenter)
 
 ;; Turn on undo-tree globally
@@ -47,7 +52,7 @@
 
 ;; Set some variables that must be configured before loading the package
 (customize-set-variable 'evil-want-integration t)
-(customize-set-variable 'evil-want-keybinding nil)
+;; (customize-set-variable 'evil-want-keybinding nil)
 (customize-set-variable 'evil-want-C-i-jump nil)
 (customize-set-variable 'evil-respect-visual-line-mode t)
 ;; C-h is backspace in insert state

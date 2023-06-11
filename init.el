@@ -174,9 +174,7 @@
  '(holiday-hebrew-holidays nil)
  '(holiday-islamic-holidays nil)
  '(inhibit-startup-screen t)
- '(org-agenda-files
-   '("/Users/charlesprat/.emacs.d/bouboulinos.org"
-     ))
+ '(org-agenda-files '("/Users/charlesprat/.emacs.d/bouboulinos.org"))
  '(org-agenda-include-diary t)
  '(org-babel-load-languages '((emacs-lisp . t) (python . t)))
  '(org-confirm-babel-evaluate nil)
@@ -250,6 +248,7 @@ apps are not started from a shell."
 
 
 (require 'jupyter-tune)
+(require 'crafted-evil)
 
 
 (use-package ox-ipynb
@@ -351,8 +350,10 @@ apps are not started from a shell."
 
 (put 'magit-clean 'disabled nil)
 
+(use-package powerline-evil)
+(powerline-evil-center-color-theme)
+
 ;; Or if you use use-package
 (use-package dashboard
   :config
   (dashboard-setup-startup-hook))
-
