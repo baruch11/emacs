@@ -37,13 +37,16 @@
 
 ;; Install dependencies
 (use-package evil
+  :ensure t
   :init
   (setq evil-want-keybinding nil
 	evil-want-C-u-scroll t))
 (use-package evil-collection
+  :ensure t
   :init
   (setq evil-want-keybinding nil))
-(use-package evil-nerd-commenter)
+(use-package evil-nerd-commenter
+  :ensure t)
 
 ;; Turn on undo-tree globally
 (when (< emacs-major-version 28)

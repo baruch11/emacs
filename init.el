@@ -1,27 +1,32 @@
 ;; https://jeffkreeftmeijer.com/emacs-straight-use-package/
 ;; Install straight.el
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+;;(defvar bootstrap-version)
+;;(let ((bootstrap-file
+;;       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+;;      (bootstrap-version 5))
+;;  (unless (file-exists-p bootstrap-file)
+;;    (with-current-buffer
+;;        (url-retrieve-synchronously
+;;         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+;;         'silent 'inhibit-cookies)
+;;      (goto-char (point-max))
+;;      (eval-print-last-sexp)))
+;;  (load bootstrap-file nil 'nomessage))
+;;
+;;;; Install use-package
+;;(straight-use-package 'use-package)
+;;
+;;;; Configure use-package to use straight.el by default
+;;(use-package straight
+;;  :custom (straight-use-package-by-default t))
+;;
+;;(use-package org)
+;;(use-package zenburn-theme)
 
-;; Install use-package
-(straight-use-package 'use-package)
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+(package-initialize)
 
-;; Configure use-package to use straight.el by default
-(use-package straight
-  :custom (straight-use-package-by-default t))
-
-(straight-use-package 'org)
-(straight-use-package 'zenburn-theme)
 
 
 ;; lcal packages loading with require
@@ -54,11 +59,13 @@
 
 ;; which-key
 (use-package which-key
+  :ensure t
   :config
   (which-key-mode))
 
 ;; LSP
 (use-package lsp-mode
+  :ensure t
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
@@ -69,6 +76,7 @@
   (lsp-enable-which-key-integration t)
   )
 (use-package lsp-ui
+  :ensure t
   :commands lsp-ui-mode
   :config
   (setq lsp-ui-doc-show-with-mouse nil
@@ -83,6 +91,7 @@
 
 ;; company : autocompletion
 (use-package company
+  :ensure t
   :config
   (setq company-idle-delay 0.1
 	company-minimum-prefix-length 1))
@@ -97,6 +106,7 @@
 
 ;; anaconda
 (use-package conda
+  :ensure t
   :config
   (setq conda-anaconda-home (expand-file-name "~/opt/miniconda3/"))
   (setq conda-env-home-directory (expand-file-name "~/opt/miniconda3/"))
@@ -112,11 +122,14 @@
   )
 
 
-(use-package poetry )
-(use-package dockerfile-mode )
+(use-package poetry
+  :ensure t)
+(use-package dockerfile-mode
+  :ensure t)
 
 ;; org config
 (use-package org-bullets
+  :ensure t
   :after org
   :hook (org-mode . org-bullets-mode)
   :custom
@@ -145,6 +158,7 @@
         kubernetes-redraw-frequency 3600))
 
 (use-package projectile
+  :ensure t
   :config
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode +1))
@@ -156,6 +170,7 @@
         kubernetes-redraw-frequency 3600))
 
 (use-package flycheck
+  :ensure t
   :init (global-flycheck-mode))
 
 
@@ -234,7 +249,8 @@ apps are not started from a shell."
 ;; https://sqrtminusone.xyz/posts/2021-05-01-org-python/
 
 (use-package jupyter
-  :straight t)
+  :ensure t)
+
 
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -249,14 +265,11 @@ apps are not started from a shell."
 
 (require 'jupyter-tune)
 (require 'crafted-evil)
-
-
-(use-package ox-ipynb
-  :straight (:host github :repo "jkitchin/ox-ipynb")
-  :after ox)
+;;(require 'outlook-cal)
 
 
 (use-package alert
+  :ensure t
   :config
   (setq
        ;; alert-default-style 'notifier
@@ -266,6 +279,7 @@ apps are not started from a shell."
   ;; (alert "This is an alert" :title "My Alert" :category 'debug)
   )
 (use-package org-alert
+  :ensure t
   :custom (alert-default-style 'osx-notifier)
   :config
   (setq org-alert-interval 3600
@@ -273,7 +287,8 @@ apps are not started from a shell."
   (org-alert-enable)
   )
 
-(use-package yaml-mode)
+(use-package yaml-mode
+  :ensure t)
 
 (use-package ansi-color
   :hook (compilation-filter . ansi-color-compilation-filter)) 
@@ -281,10 +296,16 @@ apps are not started from a shell."
 ;; org-ai for chatgpt: 
 ;; put your API key in .netrc with the format
 ;; machine api.openai.com login org-ai password <your-api-key>
-(straight-use-package
- '(org-ai :type git :host github :repo "rksm/org-ai"
-          :local-repo "org-ai"
-          :files ("*.el" "README.md" "snippets")))
+(use-package org-ai
+  :ensure t
+  :commands (org-ai-mode
+             org-ai-global-mode)
+  :init
+  (add-hook 'org-mode-hook #'org-ai-mode) ; enable org-ai in org-mode
+  (org-ai-global-mode) ; installs global keybindings on C-c M-a
+  :config
+  ;;(setq org-ai-default-chat-model "gpt-4") ; if you are on the gpt-4 beta:
+  (org-ai-install-yasnippets)) ; if you are using yasnippet and want `ai` snippets
 
 (provide 'init)
 ;;; init.el ends here
@@ -295,9 +316,12 @@ apps are not started from a shell."
              "~/.emacs.d/info/files")
 
 
-(load-file "~/.emacs.d/roam-tune.el")
+;;(load-file "~/.emacs.d/roam-tune.el")
+(require 'roam-tune)
+;;(use-package org-roam)
 
-(use-package swiper)
+(use-package swiper
+  :ensure t)
 
 (use-package ivy
   :diminish
@@ -318,6 +342,7 @@ apps are not started from a shell."
 
 ;; Enable rich annotations using the Marginalia package
 (use-package marginalia
+  :ensure t
   ;; Either bind `marginalia-cycle' globally or only in the minibuffer
   :bind (("M-A" . marginalia-cycle)
          :map minibuffer-local-map
@@ -332,6 +357,7 @@ apps are not started from a shell."
 
 
 (use-package counsel
+  :ensure t
   :bind (("C-M-j" . 'counsel-switch-buffer)
          :map minibuffer-local-map
          ("C-r" . 'counsel-minibuffer-history))
@@ -341,6 +367,7 @@ apps are not started from a shell."
   (counsel-mode 1))
 
 (use-package ivy-prescient
+  :ensure t
   :after counsel
   :config
   (ivy-prescient-mode 1))
@@ -355,5 +382,6 @@ apps are not started from a shell."
 
 ;; Or if you use use-package
 (use-package dashboard
+  :ensure t
   :config
   (dashboard-setup-startup-hook))
