@@ -182,6 +182,7 @@
  '(custom-safe-themes
    '("28a34dd458a554d34de989e251dc965e3dc72bace7d096cdc29249d60f395a82" "2dc03dfb67fbcb7d9c487522c29b7582da20766c9998aaad5e5b63b5c27eec3f" "c4cecd97a6b30d129971302fd8298c2ff56189db0a94570e7238bc95f9389cfb" default))
  '(delete-selection-mode t)
+ '(dired-listing-switches "-alFh")
  '(display-fill-column-indicator-column 80)
  '(electric-pair-mode t)
  '(global-auto-revert-mode t)
@@ -189,13 +190,13 @@
  '(holiday-hebrew-holidays nil)
  '(holiday-islamic-holidays nil)
  '(inhibit-startup-screen t)
- '(org-agenda-files '("/Users/charlesprat/.emacs.d/bouboulinos.org"))
+ '(org-agenda-files '("~/.emacs.d/bouboulinos.org"))
  '(org-agenda-include-diary t)
  '(org-babel-load-languages '((emacs-lisp . t) (python . t)))
  '(org-confirm-babel-evaluate nil)
  '(org-return-follows-link t)
  '(package-selected-packages
-   '(jupyter mu4e-overview zenburn-theme markdown-toc flycheck dockerfile-mode projectile kubernetes yaml-mode org-bullets bash-completion pdf-tools inf-mongo which-key magit lsp-mode exec-path-from-shell conda poetry company use-package))
+   '(sokoban mu4e dashboard jupyter mu4e-overview zenburn-theme markdown-toc flycheck dockerfile-mode projectile kubernetes yaml-mode org-bullets bash-completion pdf-tools inf-mongo which-key magit lsp-mode exec-path-from-shell conda poetry company use-package))
  '(python-shell-completion-native-enable nil)
  '(scroll-bar-mode nil)
  '(show-paren-mode 1)
@@ -259,8 +260,8 @@ apps are not started from a shell."
    ;; Python & Jupyter
    (python . t)
    (jupyter . t)))
- (org-babel-jupyter-override-src-block "python")
- (setq ob-async-no-async-languages-alist '("python" "jupyter-python"))
+(org-babel-jupyter-override-src-block "python")
+(setq ob-async-no-async-languages-alist '("python" "jupyter-python"))
 
 
 (require 'jupyter-tune)
@@ -386,3 +387,4 @@ apps are not started from a shell."
   :ensure t
   :config
   (dashboard-setup-startup-hook))
+(put 'narrow-to-region 'disabled nil)
