@@ -318,6 +318,7 @@ apps are not started from a shell."
 
 ;;(load-file "~/.emacs.d/roam-tune.el")
 (require 'roam-tune)
+(require 'my_custom)
 ;;(use-package org-roam)
 
 (use-package swiper
