@@ -180,7 +180,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("28a34dd458a554d34de989e251dc965e3dc72bace7d096cdc29249d60f395a82" "2dc03dfb67fbcb7d9c487522c29b7582da20766c9998aaad5e5b63b5c27eec3f" "c4cecd97a6b30d129971302fd8298c2ff56189db0a94570e7238bc95f9389cfb" default))
+   '("f366d4bc6d14dcac2963d45df51956b2409a15b770ec2f6d730e73ce0ca5c8a7" "28a34dd458a554d34de989e251dc965e3dc72bace7d096cdc29249d60f395a82" "2dc03dfb67fbcb7d9c487522c29b7582da20766c9998aaad5e5b63b5c27eec3f" "c4cecd97a6b30d129971302fd8298c2ff56189db0a94570e7238bc95f9389cfb" default))
  '(delete-selection-mode t)
  '(dired-listing-switches "-alFh")
  '(display-fill-column-indicator-column 80)
@@ -190,13 +190,13 @@
  '(holiday-hebrew-holidays nil)
  '(holiday-islamic-holidays nil)
  '(inhibit-startup-screen t)
- '(org-agenda-files '("~/.emacs.d/bouboulinos.org"))
+ '(org-agenda-files '("~/.emacs.d/bouboulinos.org" "~/.emacs.d/outlook_qm.org"))
  '(org-agenda-include-diary t)
  '(org-babel-load-languages '((emacs-lisp . t) (python . t)))
  '(org-confirm-babel-evaluate nil)
  '(org-return-follows-link t)
  '(package-selected-packages
-   '(sokoban mu4e dashboard jupyter mu4e-overview zenburn-theme markdown-toc flycheck dockerfile-mode projectile kubernetes yaml-mode org-bullets bash-completion pdf-tools inf-mongo which-key magit lsp-mode exec-path-from-shell conda poetry company use-package))
+   '(imenu-list lsp-treemacs pomodoro blacken code-cells sokoban mu4e dashboard jupyter mu4e-overview zenburn-theme markdown-toc flycheck dockerfile-mode projectile kubernetes yaml-mode org-bullets bash-completion pdf-tools inf-mongo which-key magit lsp-mode exec-path-from-shell conda poetry company use-package))
  '(python-shell-completion-native-enable nil)
  '(scroll-bar-mode nil)
  '(show-paren-mode 1)
@@ -388,3 +388,37 @@ apps are not started from a shell."
   :config
   (dashboard-setup-startup-hook))
 (put 'narrow-to-region 'disabled nil)
+
+
+;; code cells
+(defun convert-ipynb-to-markdown ()
+  "Convert the current buffer from ipynb format to markdown using jupytext."
+  (when (and (string= (file-name-extension buffer-file-name) "ipynb")
+             (executable-find "jupytext"))
+    (shell-command (concat "jupytext --to markdown " buffer-file-name))))
+
+(use-package code-cells
+  :ensure t)
+(add-hook 'after-save-hook 'convert-ipynb-to-markdown)
+
+
+(with-eval-after-load 'code-cells
+  (let ((map code-cells-mode-map))
+    (define-key map (kbd "M-p") 'code-cells-backward-cell)
+    (define-key map (kbd "M-n") 'code-cells-forward-cell)
+    (define-key map (kbd "C-c C-c") 'code-cells-eval)
+    ;; Overriding other minor mode bindings requires some insistence...
+    (define-key map [remap jupyter-eval-line-or-region] 'code-cells-eval)))
+
+(with-eval-after-load 'code-cells
+  (let ((map code-cells-mode-map))
+    (define-key map [remap evil-search-next]
+      (code-cells-speed-key 'code-cells-forward-cell)) ;; n
+    (define-key map [remap evil-paste-after]
+      (code-cells-speed-key 'code-cells-backward-cell)) ;; p
+    (define-key map [remap evil-backward-word-begin]
+      (code-cells-speed-key 'code-cells-eval-above)) ;; b
+    (define-key map [remap evil-forward-word-end]
+      (code-cells-speed-key 'code-cells-eval)) ;; e
+    (define-key map [remap evil-jump-forward]
+      (code-cells-speed-key 'outline-cycle)))) ;; TAB
