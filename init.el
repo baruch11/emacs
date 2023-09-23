@@ -388,7 +388,9 @@ apps are not started from a shell."
   :config
   (dashboard-setup-startup-hook))
 (put 'narrow-to-region 'disabled nil)
-
+(setq dashboard-items '((recents  . 5)
+                        (projects . 3)
+                        (agenda . 5)))
 
 ;; code cells
 (defun convert-ipynb-to-markdown ()
