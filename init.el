@@ -424,3 +424,15 @@ apps are not started from a shell."
       (code-cells-speed-key 'code-cells-eval)) ;; e
     (define-key map [remap evil-jump-forward]
       (code-cells-speed-key 'outline-cycle)))) ;; TAB
+
+;; display iso week https://www.emacswiki.org/emacs/CalendarWeekNumbers
+(copy-face font-lock-constant-face 'calendar-iso-week-face)
+(set-face-attribute 'calendar-iso-week-face nil
+                    :height 0.7)
+(setq calendar-intermonth-text
+      '(propertize
+        (format "%2d"
+                (car
+                 (calendar-iso-from-absolute
+                  (calendar-absolute-from-gregorian (list month day year)))))
+        'font-lock-face 'calendar-iso-week-face))
