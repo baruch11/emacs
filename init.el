@@ -36,10 +36,10 @@
 ;; (package-initialize)
 
 
-;; (unless (package-installed-p 'use-package)
-;;   (package-install 'use-package))
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 
-;; (require 'use-package)
+(require 'use-package)
 
 
 ;; key bindings
@@ -55,7 +55,8 @@
 (setq ns-right-alternate-modifier nil)
 
 
-(use-package exec-path-from-shell)
+(unless (package-installed-p 'exec-path-from-shell)
+  (package-install 'exec-path-from-shell))
 
 ;; which-key
 (use-package which-key
@@ -140,10 +141,12 @@
 	  (lambda () (setq-local electric-pair-inhibit-predicate `(lambda (c)
                   (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
 
-;; mail config
-(load-file "~/.emacs.d/mail.el")
 
 ;; magit
+(unless (package-installed-p 'magit)
+  (package-install 'magit))
+
+
 (use-package magit)
 
 ;; python interpreter
@@ -196,7 +199,7 @@
  '(org-confirm-babel-evaluate nil)
  '(org-return-follows-link t)
  '(package-selected-packages
-   '(imenu-list lsp-treemacs pomodoro blacken code-cells sokoban mu4e dashboard jupyter mu4e-overview zenburn-theme markdown-toc flycheck dockerfile-mode projectile kubernetes yaml-mode org-bullets bash-completion pdf-tools inf-mongo which-key magit lsp-mode exec-path-from-shell conda poetry company use-package))
+   '(ivy-prescient counsel marginalia swiper org-roam org-ai org-alert alert evil-nerd-commenter evil-collection evil powerline-evil imenu-list lsp-treemacs pomodoro blacken code-cells sokoban dashboard jupyter mu4e-overview zenburn-theme markdown-toc flycheck dockerfile-mode projectile kubernetes yaml-mode org-bullets bash-completion pdf-tools inf-mongo which-key magit lsp-mode exec-path-from-shell conda poetry company use-package))
  '(python-shell-completion-native-enable nil)
  '(scroll-bar-mode nil)
  '(show-paren-mode 1)
@@ -244,7 +247,7 @@ apps are not started from a shell."
  ;; If there is more than one, they won't work right.
  )
 
-;;(load-file "~/.emacs.d/mail.el")
+(load-file "~/.emacs.d/mail.el")
 
 
 ;; https://sqrtminusone.xyz/posts/2021-05-01-org-python/
@@ -378,6 +381,11 @@ apps are not started from a shell."
 (prescient-persist-mode 1)
 
 (put 'magit-clean 'disabled nil)
+
+
+
+(unless (package-installed-p 'powerline-evil)
+  (package-install 'powerline-evil))
 
 (use-package powerline-evil)
 (powerline-evil-center-color-theme)

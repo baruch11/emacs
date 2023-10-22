@@ -1,6 +1,9 @@
 ;; -*- lexical-binding: t; -*-
 
 
+(unless (package-installed-p 'org-roam)
+  (package-install 'org-roam))
+
 (use-package org-roam
   :demand t  ;; Ensure org-roam is loaded by default
   :init

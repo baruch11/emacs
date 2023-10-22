@@ -2,7 +2,7 @@
 ;; load mu4e from the installation path.
 ;; yours might differ check with the Emacs installation
 (use-package mu4e
-  :load-path  "/usr/local/share/emacs/site-lisp/mu/mu4e/")
+  :load-path "/opt/homebrew/Cellar/mu/1.10.7/share/emacs/site-lisp/mu/mu4e/")
 ;; for sending mails
 (require 'smtpmail)
 
