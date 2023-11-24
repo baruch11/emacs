@@ -10,7 +10,3 @@ ORGFILE=~/.emacs.d/bouboulinos.org
 export CALENDAR="perso"
 $WGET -O $ICSFILE $GCAL_PRIVATE_ADDRESS
 $ICS2ORG  $ICSFILE  $ORGFILE
-
-export CALENDAR="QM"
-$WGET -O ~/.emacs.d/outlook_qm.ics $QMCALICS
-$ICS2ORG   ~/.emacs.d/outlook_qm.ics  ~/.emacs.d/outlook_qm.org
