@@ -1,31 +1,24 @@
-;; https://jeffkreeftmeijer.com/emacs-straight-use-package/
-;; Install straight.el
-;;(defvar bootstrap-version)
-;;(let ((bootstrap-file
-;;       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-;;      (bootstrap-version 5))
-;;  (unless (file-exists-p bootstrap-file)
-;;    (with-current-buffer
-;;        (url-retrieve-synchronously
-;;         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-;;         'silent 'inhibit-cookies)
-;;      (goto-char (point-max))
-;;      (eval-print-last-sexp)))
-;;  (load bootstrap-file nil 'nomessage))
-;;
-;;;; Install use-package
-;;(straight-use-package 'use-package)
-;;
-;;;; Configure use-package to use straight.el by default
-;;(use-package straight
-;;  :custom (straight-use-package-by-default t))
-;;
-;;(use-package org)
-;;(use-package zenburn-theme)
+;; Set up custom.el file
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(when (and custom-file
+           (file-exists-p custom-file))
+  (load custom-file nil :nomessage))
 
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-(package-initialize)
+;; Bootstrap crafted-emacs in init.el
+(load "~/RepoGit/crafted-emacs/modules/crafted-init-config")
+
+;; Add package definitions for completion packages
+;; to `package-selected-packages'.
+(require 'crafted-completion-packages)
+
+;; Install selected packages
+(package-install-selected-packages :noconfirm)
+
+;; Load configuration for the completion module
+(require 'crafted-completion-config)
+
+
+
 
 
 
@@ -90,20 +83,7 @@
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 (setq gc-cons-threshold 100000000)
 
-;; company : autocompletion
-(use-package company
-  :ensure t
-  :config
-  (setq company-idle-delay 0.1
-	company-minimum-prefix-length 1))
 
-;; ;; elpy
-;; (use-package elpy
-;;   :ensure t
-;;   :config
-;;   (setq elpy-rpc-virtualenv-path 'current)
-;;   :init
-;;   (elpy-enable))
 
 ;; anaconda
 (use-package conda
@@ -176,40 +156,6 @@
   :ensure t
   :init (global-flycheck-mode))
 
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("f366d4bc6d14dcac2963d45df51956b2409a15b770ec2f6d730e73ce0ca5c8a7" "28a34dd458a554d34de989e251dc965e3dc72bace7d096cdc29249d60f395a82" "2dc03dfb67fbcb7d9c487522c29b7582da20766c9998aaad5e5b63b5c27eec3f" "c4cecd97a6b30d129971302fd8298c2ff56189db0a94570e7238bc95f9389cfb" default))
- '(delete-selection-mode t)
- '(dired-listing-switches "-alFh")
- '(display-fill-column-indicator-column 80)
- '(electric-pair-mode t)
- '(global-auto-revert-mode t)
- '(holiday-bahai-holidays nil)
- '(holiday-hebrew-holidays nil)
- '(holiday-islamic-holidays nil)
- '(inhibit-startup-screen t)
- '(org-agenda-files '("~/.emacs.d/bouboulinos.org" "~/.emacs.d/outlook_qm.org"))
- '(org-agenda-include-diary t)
- '(org-babel-load-languages '((emacs-lisp . t) (python . t)))
- '(org-confirm-babel-evaluate nil)
- '(org-return-follows-link t)
- '(package-selected-packages
-   '(ivy-prescient counsel marginalia swiper org-roam org-ai org-alert alert evil-nerd-commenter evil-collection evil powerline-evil imenu-list lsp-treemacs pomodoro blacken code-cells sokoban dashboard jupyter mu4e-overview zenburn-theme markdown-toc flycheck dockerfile-mode projectile kubernetes yaml-mode org-bullets bash-completion pdf-tools inf-mongo which-key magit lsp-mode exec-path-from-shell conda poetry company use-package))
- '(python-shell-completion-native-enable nil)
- '(scroll-bar-mode nil)
- '(show-paren-mode 1)
- '(tool-bar-mode nil)
- '(visible-bell t)
- '(warning-suppress-types
-   '((org-element-cache)
-     (org-element-cache)
-     (org-element-cache)
-     ((python python-shell-completion-native-turn-on-maybe)))))
 
 (set-face-attribute 'default nil :height 140)
 
@@ -325,25 +271,6 @@ apps are not started from a shell."
 (require 'my_custom)
 ;;(use-package org-roam)
 
-(use-package swiper
-  :ensure t)
-
-(use-package ivy
-  :diminish
-  :bind (("C-s" . swiper)
-	 :map ivy-minibuffer-map
-         ("C-l" . ivy-alt-done)
-         ("C-j" . ivy-next-line)
-         ("C-k" . ivy-previous-line)
-         :map ivy-switch-buffer-map
-         ("C-k" . ivy-previous-line)
-         ("C-l" . ivy-done)
-         ("C-d" . ivy-switch-buffer-kill)
-         :map ivy-reverse-i-search-map
-         ("C-k" . ivy-previous-line)
-         ("C-d" . ivy-reverse-i-search-kill))
-  :config
-  (ivy-mode 1))
 
 ;; Enable rich annotations using the Marginalia package
 (use-package marginalia
@@ -359,28 +286,6 @@ apps are not started from a shell."
   ;; Must be in the :init section of use-package such that the mode gets
   ;; enabled right away. Note that this forces loading the package.
   (marginalia-mode))
-
-
-(use-package counsel
-  :ensure t
-  :bind (("C-M-j" . 'counsel-switch-buffer)
-         :map minibuffer-local-map
-         ("C-r" . 'counsel-minibuffer-history))
-  :custom
-  (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
-  :config
-  (counsel-mode 1))
-
-(use-package ivy-prescient
-  :ensure t
-  :after counsel
-  :config
-  (ivy-prescient-mode 1))
-
-;; Remember candidate frequencies across sessions
-(prescient-persist-mode 1)
-
-(put 'magit-clean 'disabled nil)
 
 
 
@@ -444,3 +349,4 @@ apps are not started from a shell."
                  (calendar-iso-from-absolute
                   (calendar-absolute-from-gregorian (list month day year)))))
         'font-lock-face 'calendar-iso-week-face))
+
