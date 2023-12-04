@@ -29,6 +29,16 @@
   (require 'org-roam-dailies) ;; Ensure the keymap is available
   (org-roam-db-autosync-mode))
 
+
+;; workaround for tag search
+(when (or (bound-and-true-p fido-vertical-mode)
+          (bound-and-true-p icomplete-vertical-mode)
+          (bound-and-true-p vertico-mode))
+  (customize-set-variable 'org-roam-node-display-template
+                          (concat "${title:*} "
+                                  (propertize "${tags:10}" 'face 'org-tag))))
+
+
 (defun org-roam-node-insert-immediate (arg &rest args)
   (interactive "P")
   (let ((args (push arg args))
