@@ -86,6 +86,7 @@
 
 
 ;; anaconda
+(setenv "ANACONDA_HOME" "~/opt/miniconda3/")
 (use-package conda
   :ensure t
   :config
