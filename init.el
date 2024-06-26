@@ -362,3 +362,13 @@ apps are not started from a shell."
       ;; Output each query before executing it. (n.b. this also avoids
       ;; the psql prompt breaking the alignment of query results.)
       (comint-send-string proc "\\set ECHO queries\n"))))
+
+;; org todo
+(setq org-todo-keywords
+      '((sequence "TODO" "|" "DONE")
+        (sequence "|" "BACKLOG")
+        (sequence "|" "CANCELED")))
+
+(setq org-todo-keyword-faces
+      '(("BACKLOG" . "orange") ("CANCELED" . "blue")))
+
