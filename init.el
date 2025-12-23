@@ -57,31 +57,6 @@
   :config
   (which-key-mode))
 
-;; LSP
-(use-package lsp-mode
-  :ensure t
-  :init
-  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  (setq lsp-keymap-prefix "C-c l")
-  :hook ((python-mode . lsp))
-  :commands lsp
-  :config
-  (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
-  (lsp-enable-which-key-integration t)
-  )
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode
-  :config
-  (setq lsp-ui-doc-show-with-mouse nil
-	lsp-ui-doc-max-height 50
-	lsp-ui-doc-show-with-cursor t
-	lsp-ui-doc-delay 1
-	lsp-ui-doc-enable nil) ;; disable doc mode
-  )
-;;https://emacs-lsp.github.io/lsp-mode/page/performance/
-(setq read-process-output-max (* 1024 1024)) ;; 1mb
-(setq gc-cons-threshold 100000000)
 
 
 
@@ -135,11 +110,6 @@
   (setq python-shell-interpreter "ipython"
 	python-shell-interpreter-args "-i --simple-prompt"))
 
-(use-package kubernetes
-  :commands (kubernetes-overview)
-  :config
-  (setq kubernetes-poll-frequency 3600
-        kubernetes-redraw-frequency 3600))
 
 (use-package projectile
   :ensure t
@@ -147,11 +117,6 @@
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode +1))
 
-(use-package kubernetes
-  :commands (kubernetes-overview)
-  :config
-  (setq kubernetes-poll-frequency 3600
-        kubernetes-redraw-frequency 3600))
 
 (use-package flycheck
   :ensure t
@@ -194,77 +159,20 @@ apps are not started from a shell."
  ;; If there is more than one, they won't work right.
  )
 
-(load-file "~/.emacs.d/mail.el")
 
 
-;; https://sqrtminusone.xyz/posts/2021-05-01-org-python/
-
-(use-package jupyter
-  :ensure t)
 
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((emacs-lisp . t) ;; Other languages
-   (shell . t)
-   ;; Python & Jupyter
-   (python . t)
-   (jupyter . t)))
-(org-babel-jupyter-override-src-block "python")
-(setq ob-async-no-async-languages-alist '("python" "jupyter-python"))
-
-
-(require 'jupyter-tune)
 (require 'crafted-evil)
 ;;(require 'outlook-cal)
 
 
-(use-package alert
-  :ensure t
-  :config
-  (setq
-       ;; alert-default-style 'notifier
-       alert-default-style 'osx-notifier
-       )
-  ;; (alert "This is an alert" :severity 'high)
-  ;; (alert "This is an alert" :title "My Alert" :category 'debug)
-  )
-(use-package org-alert
-  :ensure t
-  :custom (alert-default-style 'osx-notifier)
-  :config
-  (setq org-alert-interval 3600
-	org-alert-notification-title "Org alert reminder")
-  (org-alert-enable)
-  )
 
 (use-package yaml-mode
   :ensure t)
 
 (use-package ansi-color
   :hook (compilation-filter . ansi-color-compilation-filter)) 
-
-;; org-ai for chatgpt: 
-;; put your API key in .netrc with the format
-;; machine api.openai.com login org-ai password <your-api-key>
-(use-package org-ai
-  :ensure t
-  :commands (org-ai-mode
-             org-ai-global-mode)
-  :init
-  (add-hook 'org-mode-hook #'org-ai-mode) ; enable org-ai in org-mode
-  (org-ai-global-mode) ; installs global keybindings on C-c M-a
-  :config
-  ;;(setq org-ai-default-chat-model "gpt-4") ; if you are on the gpt-4 beta:
-  (org-ai-install-yasnippets)) ; if you are using yasnippet and want `ai` snippets
-
-(provide 'init)
-;;; init.el ends here
-(put 'set-goal-column 'disabled nil)
-
-(require 'info)
-(add-to-list 'Info-default-directory-list
-             "~/.emacs.d/info/files")
 
 
 ;;(load-file "~/.emacs.d/roam-tune.el")
