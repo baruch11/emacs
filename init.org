@@ -58,10 +58,16 @@
     ;; setting is useful beyond Corfu.
     (setq read-extended-command-predicate #'command-completion-default-include-p))
 
- 
+  ;; Add extensions
+  (use-package cape
+    :init
+    (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+    (add-to-list 'completion-at-point-functions #'cape-file)
+    (add-to-list 'completion-at-point-functions #'cape-elisp-block)
+    )
+
 
 #+end_src
-
 
 
 

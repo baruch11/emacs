@@ -5,25 +5,25 @@
   (load custom-file nil :nomessage))
 
 ;; Bootstrap crafted-emacs in init.el
-(load "~/RepoGit/crafted-emacs/modules/crafted-init-config")
+;; (load "~/RepoGit/crafted-emacs/modules/crafted-init-config")
+(add-to-list 'load-path "~/.emacs.d/lisp")
+
+(require 'my-completion)
+
+
 
 ;; Add package definitions for completion packages
 ;; to `package-selected-packages'.
-(require 'crafted-completion-packages)
+;; (require 'crafted-completion-packages)
 
 ;; Install selected packages
 (package-install-selected-packages :noconfirm)
 
 ;; Load configuration for the completion module
-(require 'crafted-completion-config)
-
-
-
-
+;;(require 'crafted-completion-config)
 
 
 ;; lcal packages loading with require
-(add-to-list 'load-path "~/.emacs.d/lisp")
 
 ;; (require 'package)
 ;; (package-initialize)
@@ -33,7 +33,6 @@
   (package-install 'use-package))
 
 (require 'use-package)
-
 
 ;; key bindings
 (global-set-key (kbd "C-c c") 'compile)
@@ -92,10 +91,10 @@
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
-;; inhibit pair mode for < in org-mode, important for org-structure-template-alist
-(add-hook 'org-mode-hook
-	  (lambda () (setq-local electric-pair-inhibit-predicate `(lambda (c)
-                  (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
+;; ;; inhibit pair mode for < in org-mode, important for org-structure-template-alist
+;; (add-hook 'org-mode-hook
+;; 	  (lambda () (setq-local electric-pair-inhibit-predicate `(lambda (c)
+;;                   (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
 
 
 ;; magit
