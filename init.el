@@ -83,18 +83,6 @@
 (use-package dockerfile-mode
   :ensure t)
 
-;; org config
-(use-package org-bullets
-  :ensure t
-  :after org
-  :hook (org-mode . org-bullets-mode)
-  :custom
-  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
-
-;; ;; inhibit pair mode for < in org-mode, important for org-structure-template-alist
-;; (add-hook 'org-mode-hook
-;; 	  (lambda () (setq-local electric-pair-inhibit-predicate `(lambda (c)
-;;                   (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
 
 
 ;; magit
@@ -201,11 +189,6 @@ apps are not started from a shell."
 (use-package powerline-evil)
 (powerline-evil-center-color-theme)
 
-;; Or if you use use-package
-(use-package dashboard
-  :ensure t
-  :config
-  (dashboard-setup-startup-hook))
 (put 'narrow-to-region 'disabled nil)
 (setq dashboard-items '((recents  . 5)
                         (projects . 3)
