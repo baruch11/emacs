@@ -253,3 +253,35 @@
 
 #+end_src
 
+* evil
+#+begin_src emacs-lisp :tangle ~/.emacs.d/lisp/my-evil.el
+  ;;; my-evil.el --- evil config
+  ;;; Commentary:
+  ;;; Code:
+
+  (use-package undo-tree
+    :ensure t
+    :config
+    (global-undo-tree-mode)
+    )
+
+  (use-package evil
+    :ensure t
+    :init
+    (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+    (setq evil-want-keybinding nil)
+    (setq evil-undo-system 'undo-tree)
+    :config
+    (evil-mode 1))
+
+  (use-package evil-collection
+    :after evil
+    :ensure t
+    :config
+    (evil-collection-init))
+
+  (provide 'my-evil)
+  ;;; my-completion.el ends here
+
+#+end_src
+
