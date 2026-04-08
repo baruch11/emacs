@@ -35,19 +35,11 @@
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
-(require 'use-package)
 
-;; key bindings
-(global-set-key (kbd "C-c c") 'compile)
-(global-set-key (kbd "C-c g") 'list-matching-lines)
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "S-C-<down>") 'shrink-window)
-(global-set-key (kbd "S-C-<up>") 'enlarge-window)
-(global-set-key "\C-x\C-b" 'buffer-menu)
+
 ;; disable right alt to be able to type ~ | etc.
 (setq ns-right-alternate-modifier nil)
+
 
 
 (unless (package-installed-p 'exec-path-from-shell)

@@ -27,6 +27,20 @@
                             (agenda    . 5)))
     )
 
+
+  ;; key bindings
+  (keymap-global-set "C-c c" 'compile)
+  (keymap-global-set "C-c g" 'list-matching-lines)
+  (keymap-global-set "C-c a" 'org-agenda)
+  (keymap-global-set "S-C <left>" 'shrink-window-horizontally)
+  (keymap-global-set "S-C <right>" 'enlarge-window-horizontally)
+  (keymap-global-set "S-C <down>" 'shrink-window)
+  (keymap-global-set "S-C <up>" 'enlarge-window)
+  (keymap-global-set "C-x C-b" 'buffer-menu)
+
+
+
+
   (provide 'my-init)
   ;;; init.el ends here
 #+end_src
