@@ -9,13 +9,6 @@
   ;;; Commentary:
   ;;; Code:
 
-  ;;; org config
-  (use-package org-bullets
-    :ensure t
-    :after org
-    :hook (org-mode . org-bullets-mode)
-    :custom
-    (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
   ;;; dashboard
   (use-package dashboard
@@ -423,6 +416,14 @@
 
 #+begin_src emacs-lisp :tangle ~/.emacs.d/lisp/my-org-mode.el
 
+  ;; bullets
+  (use-package org-bullets
+    :ensure t
+    :after org
+    :hook (org-mode . org-bullets-mode)
+    :custom
+    (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+  
   ;; display iso week https://www.emacswiki.org/emacs/CalendarWeekNumbers
   (copy-face font-lock-constant-face 'calendar-iso-week-face)
   (set-face-attribute 'calendar-iso-week-face nil
