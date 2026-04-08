@@ -1,4 +1,5 @@
 #+TITLE: My Emacs Configuration
+#+STARTUP: overview
 
 
 * general
@@ -446,4 +447,37 @@
         '(("BACKLOG" . "orange") ("CANCELED" . "blue")))
 
   (provide 'my-org-mode)
+#+end_src
+
+* llms
+
+#+begin_src emacs-lisp :tangle ~/.emacs.d/lisp/my-llm-copilots.el
+
+  (use-package gptel
+    :config
+    (setq gptel-backend
+          (gptel-make-anthropic "Claude"
+            :stream t
+            :key (auth-source-pick-first-password
+                  :host "api.anthropic.com")))
+    )
+
+  ;; Définir le modèle par défaut
+  (setq gptel-model "claude-sonnet-4-5-20250929")
+
+
+    ;;; copilot
+  (use-package copilot
+    :ensure t
+    ;;:hook (prog-mode . copilot-mode)
+    :bind (:map copilot-completion-map
+    	      ("<tab>" . copilot-accept-completion)
+    	      ("TAB" . copilot-accept-completion)
+    	      ("C-<tab>" . copilot-accept-completion-by-word)
+    	      ("C-TAB" . copilot-accept-completion-by-word)
+    	      ("C-n" . copilot-next-completion)
+    	      ("C-p" . copilot-previous-completion)))
+
+  (provide 'my-llm-copilots)
+
 #+end_src
