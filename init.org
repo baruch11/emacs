@@ -328,3 +328,33 @@
   ;;; my-completion.el ends here
 
 #+end_src
+
+* mail
+
+
+#+begin_src emacs-lisp :tangle ~/.emacs.d/lisp/my-mail.el
+  ;;; my-mail.el --- mu4e config
+  ;;; Commentary:
+  ;;; Code:
+
+  (use-package mu4e
+    :demand t
+    :config
+    ;; Point to your mu installation
+    (setq mu4e-mu-binary (executable-find "mu"))
+    ;; Configure your email accounts, folders, etc.
+    (setq
+     mu4e-maildir       "~/.maildir/"   ;; top-level Maildir
+     mu4e-sent-folder   "/yahoo/Sent"       ;; folder for sent messages
+     mu4e-drafts-folder "/yahoo/Draft"     ;; unfinished messages
+     mu4e-trash-folder  "/yahoo/Trash"      ;; trashed messages
+     mu4e-refile-folder "/yahoo/Archive")  ;; saved messages
+    (setq mu4e-change-filenames-when-moving t)
+    (setf mu4e-get-mail-command "mbsync -a")
+   )
+
+  (provide 'my-mail)
+
+  ;;; my-mail.el ends here
+
+#+end_src

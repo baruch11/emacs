@@ -14,22 +14,11 @@
 
 (require 'my-evil)
 
+(require 'my-mail)
 
-;; Add package definitions for completion packages
-;; to `package-selected-packages'.
-;; (require 'crafted-completion-packages)
 
 ;; Install selected packages
 (package-install-selected-packages :noconfirm)
-
-;; Load configuration for the completion module
-;;(require 'crafted-completion-config)
-
-
-;; lcal packages loading with require
-
-;; (require 'package)
-;; (package-initialize)
 
 
 (unless (package-installed-p 'use-package)
