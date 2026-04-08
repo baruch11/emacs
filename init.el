@@ -84,22 +84,8 @@
 (powerline-evil-center-color-theme)
 
 (put 'narrow-to-region 'disabled nil)
-(setq dashboard-items '((recents  . 5)
-			(projects . 3)
-			(agenda . 5)))
 
 
-;; display iso week https://www.emacswiki.org/emacs/CalendarWeekNumbers
-(copy-face font-lock-constant-face 'calendar-iso-week-face)
-(set-face-attribute 'calendar-iso-week-face nil
-		    :height 0.7)
-(setq calendar-intermonth-text
-      '(propertize
-	(format "%2d"
-		(car
-		 (calendar-iso-from-absolute
-		  (calendar-absolute-from-gregorian (list month day year)))))
-	'font-lock-face 'calendar-iso-week-face))
 
 ;; workaround for postgresql misalignement
 ;; https://www.emacswiki.org/emacs/SqlMode#h5o-5
@@ -114,12 +100,5 @@
       ;; the psql prompt breaking the alignment of query results.)
       (comint-send-string proc "\\set ECHO queries\n"))))
 
-;; org todo
-(setq org-todo-keywords
-      '((sequence "TODO" "|" "DONE")
-        (sequence "|" "BACKLOG")
-        (sequence "|" "CANCELED")))
 
-(setq org-todo-keyword-faces
-      '(("BACKLOG" . "orange") ("CANCELED" . "blue")))
 

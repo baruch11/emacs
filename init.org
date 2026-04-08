@@ -399,3 +399,31 @@
 
   (provide 'my-notebooks)
 #+end_src
+
+* org mode
+
+#+begin_src emacs-lisp :tangle ~/.emacs.d/lisp/my-org-mode.el
+
+  ;; display iso week https://www.emacswiki.org/emacs/CalendarWeekNumbers
+  (copy-face font-lock-constant-face 'calendar-iso-week-face)
+  (set-face-attribute 'calendar-iso-week-face nil
+    		    :height 0.7)
+  (setq calendar-intermonth-text
+        '(propertize
+    	(format "%2d"
+    		(car
+    		 (calendar-iso-from-absolute
+    		  (calendar-absolute-from-gregorian (list month day year)))))
+    	'font-lock-face 'calendar-iso-week-face))
+
+  ;; org todo
+  (setq org-todo-keywords
+        '((sequence "TODO" "|" "DONE")
+  	(sequence "|" "BACKLOG")
+  	(sequence "|" "CANCELED")))
+
+  (setq org-todo-keyword-faces
+        '(("BACKLOG" . "orange") ("CANCELED" . "blue")))
+
+  (provide 'my-org-mode)
+#+end_src
