@@ -1,7 +1,7 @@
 ;; Set up custom.el file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (and custom-file
-           (file-exists-p custom-file))
+	   (file-exists-p custom-file))
   (load custom-file nil :nomessage))
 
 ;; Bootstrap crafted-emacs in init.el
@@ -40,36 +40,7 @@
   :config  (which-key-mode))
 
 
-(use-package poetry
-  :ensure t)
-(use-package dockerfile-mode
-  :ensure t)
 
-
-
-;; magit
-(unless (package-installed-p 'magit)
-  (package-install 'magit))
-
-
-(use-package magit)
-
-;; python interpreter
-(when (executable-find "ipython")
-  (setq python-shell-interpreter "ipython"
-	python-shell-interpreter-args "-i --simple-prompt"))
-
-
-(use-package projectile
-  :ensure t
-  :config
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  (projectile-mode +1))
-
-
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode))
 
 
 (set-face-attribute 'default nil :height 140)
@@ -80,7 +51,7 @@
   :ensure t)
 
 (use-package ansi-color
-  :hook (compilation-filter . ansi-color-compilation-filter)) 
+  :hook (compilation-filter . ansi-color-compilation-filter))
 
 
 ;;(load-file "~/.emacs.d/roam-tune.el")
@@ -94,8 +65,8 @@
   :ensure t
   ;; Either bind `marginalia-cycle' globally or only in the minibuffer
   :bind (("M-A" . marginalia-cycle)
-         :map minibuffer-local-map
-         ("M-A" . marginalia-cycle))
+	 :map minibuffer-local-map
+	 ("M-A" . marginalia-cycle))
 
   ;; The :init configuration is always executed (Not lazy!)
   :init
@@ -114,14 +85,14 @@
 
 (put 'narrow-to-region 'disabled nil)
 (setq dashboard-items '((recents  . 5)
-                        (projects . 3)
-                        (agenda . 5)))
+			(projects . 3)
+			(agenda . 5)))
 
 ;; code cells
 (defun convert-ipynb-to-markdown ()
   "Convert the current buffer from ipynb format to markdown using jupytext."
   (when (and (string= (file-name-extension buffer-file-name) "ipynb")
-             (executable-find "jupytext"))
+	     (executable-find "jupytext"))
     (shell-command (concat "jupytext --to markdown " buffer-file-name))))
 
 (use-package code-cells
@@ -153,14 +124,14 @@
 ;; display iso week https://www.emacswiki.org/emacs/CalendarWeekNumbers
 (copy-face font-lock-constant-face 'calendar-iso-week-face)
 (set-face-attribute 'calendar-iso-week-face nil
-                    :height 0.7)
+		    :height 0.7)
 (setq calendar-intermonth-text
       '(propertize
-        (format "%2d"
-                (car
-                 (calendar-iso-from-absolute
-                  (calendar-absolute-from-gregorian (list month day year)))))
-        'font-lock-face 'calendar-iso-week-face))
+	(format "%2d"
+		(car
+		 (calendar-iso-from-absolute
+		  (calendar-absolute-from-gregorian (list month day year)))))
+	'font-lock-face 'calendar-iso-week-face))
 
 ;; workaround for postgresql misalignement
 ;; https://www.emacswiki.org/emacs/SqlMode#h5o-5
