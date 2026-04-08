@@ -8,8 +8,11 @@
 ;; (load "~/RepoGit/crafted-emacs/modules/crafted-init-config")
 (add-to-list 'load-path "~/.emacs.d/lisp")
 
+(require 'my-init)
+
 (require 'my-completion)
 
+(require 'my-evil)
 
 
 ;; Add package definitions for completion packages
@@ -53,29 +56,7 @@
 ;; which-key
 (use-package which-key
   :ensure t
-  :config
-  (which-key-mode))
-
-
-
-
-;; anaconda
-(setenv "ANACONDA_HOME" "~/opt/miniconda3/")
-(use-package conda
-  :ensure t
-  :config
-  (setq conda-anaconda-home (expand-file-name "~/opt/miniconda3/"))
-  (setq conda-env-home-directory (expand-file-name "~/opt/miniconda3/"))
-  (setq conda-env-subdirectory "envs")
-  ;; from https://github.com/necaris/conda.el
-  ;; if you want interactive shell support, include:
-  ;;(conda-env-initialize-interactive-shells)
-  ;; if you want eshell support, include:
-  (conda-env-initialize-eshell)
-  ;; if you want auto-activation (see below for details), include:
-  ;;(conda-env-autoactivate-mode t)
-  (conda-env-activate "base")
-  )
+  :config  (which-key-mode))
 
 
 (use-package poetry
@@ -111,45 +92,6 @@
 
 
 (set-face-attribute 'default nil :height 140)
-
-
-
-;; PYTHONPATH to curdir
-(defun my/set-pythonpath_curdir()
-  "SET PYTHONPATH TO CURRENT DIR."
-  (interactive)
-  (setenv "PYTHONPATH" (expand-file-name (nth 1 (split-string (pwd)))))
-  )
-(put 'upcase-region 'disabled nil)
-
-
-(defun set-exec-path-from-shell-PATH ()
-  "Set up Emacs' `exec-path' and PATH environment variable 
-to match that used by the user's shell.
-
-This is particularly useful under Mac OS X and macOS, where GUI
-apps are not started from a shell."
-  (interactive)
-  (let ((path-from-shell (replace-regexp-in-string
-			  "[ \t\n]*$" "" (shell-command-to-string
-					  "$SHELL --login -c 'echo $PATH'"
-					  ))))
-    (setenv "PATH" path-from-shell)
-    (setq exec-path (split-string path-from-shell path-separator))))
-(set-exec-path-from-shell-PATH)
-(require 'my-completion)
-
-(require 'my-evil)
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-
-
 
 
 
