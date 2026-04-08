@@ -358,3 +358,44 @@
   ;;; my-mail.el ends here
 
 #+end_src
+
+* notebooks
+
+#+begin_src emacs-lisp :tangle ~/.emacs.d/lisp/my-notebooks.el
+
+
+  ;; code cells
+  (defun convert-ipynb-to-markdown ()
+    "Convert the current buffer from ipynb format to markdown using jupytext."
+    (when (and (string= (file-name-extension buffer-file-name) "ipynb")
+	       (executable-find "jupytext"))
+      (shell-command (concat "jupytext --to markdown " buffer-file-name))))
+
+  (use-package code-cells
+    :ensure t)
+  (add-hook 'after-save-hook 'convert-ipynb-to-markdown)
+
+
+  (with-eval-after-load 'code-cells
+    (let ((map code-cells-mode-map))
+      (define-key map (kbd "M-p") 'code-cells-backward-cell)
+      (define-key map (kbd "M-n") 'code-cells-forward-cell)
+      (define-key map (kbd "C-c C-c") 'code-cells-eval)
+      ;; Overriding other minor mode bindings requires some insistence...
+      (define-key map [remap jupyter-eval-line-or-region] 'code-cells-eval)))
+
+  (with-eval-after-load 'code-cells
+    (let ((map code-cells-mode-map))
+      (define-key map [remap evil-search-next]
+	(code-cells-speed-key 'code-cells-forward-cell)) ;; n
+      (define-key map [remap evil-paste-after]
+	(code-cells-speed-key 'code-cells-backward-cell)) ;; p
+      (define-key map [remap evil-backward-word-begin]
+	(code-cells-speed-key 'code-cells-eval-above)) ;; b
+      (define-key map [remap evil-forward-word-end]
+	(code-cells-speed-key 'code-cells-eval)) ;; e
+      (define-key map [remap evil-jump-forward]
+	(code-cells-speed-key 'outline-cycle)))) ;; TAB
+
+  (provide 'my-notebooks)
+#+end_src
