@@ -9,9 +9,7 @@
   :init
   (setq org-roam-v2-ack t)
   :custom
-  (org-roam-directory "~/org-roam")
   (org-roam-completion-everywhere t)
-  (org-roam-database-connector 'sqlite-builtin)
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)
@@ -29,7 +27,6 @@
   :config
   (require 'org-roam-dailies) ;; Ensure the keymap is available
   (org-roam-db-autosync-mode))
-
 
 ;; workaround for tag search
 (when (or (bound-and-true-p fido-vertical-mode)
