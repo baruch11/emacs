@@ -15,6 +15,8 @@
 
 (require 'my-init)
 
+(require 'my-project)
+
 (require 'my-completion)
 
 (require 'my-evil)

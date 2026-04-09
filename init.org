@@ -58,6 +58,18 @@
   ;;; init.el ends here
 #+end_src
 
+* project
+#+begin_src emacs-lisp :tangle ~/.emacs.d/lisp/my-project.el
+
+  (use-package magit)
+  (use-package project
+    :ensure t
+    :bind (:map project-prefix-map
+                ("m" . magit-project-status)))
+
+  (provide 'my-project)
+
+#+end_src
 * completion
 
 ** header
