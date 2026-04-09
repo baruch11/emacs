@@ -1,4 +1,11 @@
+(require 'package)
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
+
+(unless (package-installed-p 'use-package)
 ;; Set up custom.el file
+  (package-install 'use-package))
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (and custom-file
 	   (file-exists-p custom-file))
@@ -12,7 +19,7 @@
 
 (require 'my-evil)
 
-(require 'my-mail)
+;;(require 'my-mail)
 
 (require 'my-org-mode)
 
