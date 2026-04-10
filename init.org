@@ -37,8 +37,6 @@
     :ensure t
     :config  (which-key-mode))
 
-  (set-face-attribute 'default nil :height 140)
-
   (use-package ansi-color
     :hook (compilation-filter . ansi-color-compilation-filter))
 
