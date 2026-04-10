@@ -13,6 +13,7 @@
 
   ;;; dashboard
   (use-package dashboard
+    :defer nil
     :ensure t
     :config
     (dashboard-setup-startup-hook)
@@ -45,8 +46,8 @@
     :ensure t
     ;; Either bind `marginalia-cycle' globally or only in the minibuffer
     :bind (("M-A" . marginalia-cycle)
-  	 :map minibuffer-local-map
-  	 ("M-A" . marginalia-cycle))
+	 :map minibuffer-local-map
+	 ("M-A" . marginalia-cycle))
     :init
     (marginalia-mode))
 
@@ -339,6 +340,7 @@
 
   (use-package evil
     :ensure t
+    :defer nil
     :init
     (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
     (setq evil-want-keybinding nil)
@@ -439,27 +441,27 @@
     :hook (org-mode . org-bullets-mode)
     :custom
     (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
-  
+
   ;; display iso week https://www.emacswiki.org/emacs/CalendarWeekNumbers
   (copy-face font-lock-constant-face 'calendar-iso-week-face)
   (set-face-attribute 'calendar-iso-week-face nil
-    		    :height 0.7)
+		    :height 0.7)
   (setq calendar-intermonth-text
-        '(propertize
-    	(format "%2d"
-    		(car
-    		 (calendar-iso-from-absolute
-    		  (calendar-absolute-from-gregorian (list month day year)))))
-    	'font-lock-face 'calendar-iso-week-face))
+	'(propertize
+	(format "%2d"
+		(car
+		 (calendar-iso-from-absolute
+		  (calendar-absolute-from-gregorian (list month day year)))))
+	'font-lock-face 'calendar-iso-week-face))
 
   ;; org todo
   (setq org-todo-keywords
-        '((sequence "TODO" "|" "DONE")
-  	(sequence "|" "BACKLOG")
-  	(sequence "|" "CANCELED")))
+	'((sequence "TODO" "|" "DONE")
+	(sequence "|" "BACKLOG")
+	(sequence "|" "CANCELED")))
 
   (setq org-todo-keyword-faces
-        '(("BACKLOG" . "orange") ("CANCELED" . "blue")))
+	'(("BACKLOG" . "orange") ("CANCELED" . "blue")))
 
 
   (defun my/org-link-copy (&optional arg)
@@ -472,7 +474,10 @@
       (kill-new url)
       (message (concat "Copied URL: " url))))
 
-  (define-key org-mode-map (kbd "C-x C-l") 'my/org-link-copy)
+  (use-package org-mode
+    :config
+    (define-key org-mode-map (kbd "C-x C-l") 'my/org-link-copy)
+    )
   (provide 'my-org-mode)
 #+end_src
 
