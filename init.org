@@ -18,8 +18,8 @@
     :config
     (dashboard-setup-startup-hook)
     (setq dashboard-items '((recents   . 5)
-			    (projects  . 5)
-			    (agenda    . 5)))
+  			    (projects  . 5)
+  			    (agenda    . 5)))
     )
 
 
@@ -46,12 +46,19 @@
     :ensure t
     ;; Either bind `marginalia-cycle' globally or only in the minibuffer
     :bind (("M-A" . marginalia-cycle)
-	 :map minibuffer-local-map
-	 ("M-A" . marginalia-cycle))
+  	 :map minibuffer-local-map
+  	 ("M-A" . marginalia-cycle))
     :init
     (marginalia-mode))
 
 
+  (defun my/tangle-init-org ()
+    "Tangle init.org when saving."
+    (when (string-equal (buffer-file-name)
+			(expand-file-name "~/.emacs.d/init.org"))
+      (org-babel-tangle)))
+
+  (add-hook 'after-save-hook #'my/tangle-init-org)
 
   (provide 'my-init)
   ;;; init.el ends here
