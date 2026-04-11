@@ -492,10 +492,8 @@
             :stream t
             :key (auth-source-pick-first-password
                   :host "api.anthropic.com")))
+    (setq gptel-model 'claude-sonnet-4-5-20250929)
     )
-
-  ;; Définir le modèle par défaut
-  (setq gptel-model "claude-sonnet-4-5-20250929")
 
 
     ;;; copilot
