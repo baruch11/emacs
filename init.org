@@ -474,7 +474,7 @@
       (kill-new url)
       (message (concat "Copied URL: " url))))
 
-  (use-package org-mode
+  (use-package org
     :config
     (define-key org-mode-map (kbd "C-x C-l") 'my/org-link-copy)
     )
