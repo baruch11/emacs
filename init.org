@@ -78,7 +78,8 @@
     :hook (java-mode . eglot-ensure)
     :config
     (add-to-list 'eglot-server-programs
-		 '(java-mode . ("jdtls"))))
+                 '(java-mode . ("/home/chprat/jdtls/jdtls.sh"))))
+
 
   (provide 'my-project)
 
