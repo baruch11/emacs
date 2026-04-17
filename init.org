@@ -73,12 +73,18 @@
     :bind (:map project-prefix-map
 		("m" . magit-project-status)))
 
+  (use-package scala-mode
+    :ensure t
+    :interpreter ("scala" . scala-mode))
+
   (use-package eglot
     :ensure t
     :hook (java-mode . eglot-ensure)
     :config
     (add-to-list 'eglot-server-programs
-                 '(java-mode . ("/home/chprat/jdtls/jdtls.sh"))))
+	       '(scala-mode . ("metals")))
+    (add-to-list 'eglot-server-programs
+		 '(java-mode . ("/home/chprat/jdtls/jdtls.sh"))))
 
 
   (provide 'my-project)
