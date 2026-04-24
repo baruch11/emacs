@@ -10,6 +10,14 @@
   ;;; Commentary:
   ;;; Code:
 
+  ;;; default variables
+  ;; Utiliser des espaces au lieu de tabulations
+  (setq-default indent-tabs-mode nil)
+  ;; Définir la largeur de tabulation à 4 espaces
+  (setq-default tab-width 4)
+  ;; Définir l'indentation standard à 4 espaces
+  (setq-default standard-indent 4)
+
 
   ;;; dashboard
   (use-package dashboard
