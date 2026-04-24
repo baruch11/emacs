@@ -499,6 +499,7 @@
   (use-package org
     :config
     (define-key org-mode-map (kbd "C-x C-l") 'my/org-link-copy)
+    (setq org-src-preserve-indentation t)
     )
   (provide 'my-org-mode)
 #+end_src
